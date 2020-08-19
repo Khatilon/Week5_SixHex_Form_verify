@@ -1,0 +1,17 @@
+把值的呈現方式改變
+- Filter : 適合單一值的轉換
+- computed: 適合整體資料的轉換
+
+
+
+-第一層 Vue的實體及元件 --> 屬性
+
+  -第二層 __proto__ (原型) -->方法
+
+
+//插件
+//Vue.component
+//註冊到Vue的原型
+
+
+在html標籤裡面(input的部分) 需要針對type做特別設定 ex:email or number 之類的

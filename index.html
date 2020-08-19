@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="screen">	
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <!-- development version, includes helpful console warnings -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    <!--vue-loading-overlay CDN引入-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.3/dist/vue-loading.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3.3.3/dist/vue-loading.css">
+
+    <!--驗證套件載入-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+    
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>這裡未來會放放入<br>購物車的商品列表</h2>
+            </div>
+            <div class="col-6">
+                <validation-observer v-slot="{ invalid }">
+
+                    <form @submit.prevent="clickMe" class="formTable"> <!--把原生事件拿掉,換成自己的-->
+                        <div>
+                            <validation-provider rules="required|min:2" v-slot="{errors,classes}">
+                                <label for="username">收件人姓名</label>
+                                <input id="username" type="text" name="username" v-model="form.username" class="form-control"
+                                    :class="classes">
+            
+                                <span class="invalid-feedback">  {{errors[0]}}</span> <!--這條來自bootstrap-->
+                                <!-- <span v-if="passed">姓名驗證成功</span> -->
+            
+                            </validation-provider>
+                        </div>
+                        
+                        <div>
+                            <validation-provider rules="required|email" v-slot="{errors,classes,passed}">
+                                <label for="email">Email</label>
+                                <input id="email" type="email" name="email" v-model="form.email" class="form-control"
+                                    :class="classes">
+                    
+                                <span class="invalid-feedback"> {{errors[0]}}</span>
+                                <!-- <span v-if="passed">Email格式正確</span> -->
+                            </validation-provider>
+        
+                            <!-- <button type="submit" class="btn btn-primary" :disabled="invalid">按鈕</button> -->
+                        </div>
+        
+                        <div>
+                            <validation-provider rules="required|min:8" v-slot="{errors,classes}">
+                                <label for="phone">電話</label>
+                                <input id="phone" type="tel" name="phone" v-model="form.phone" class="form-control"
+                                    :class="classes">
+            
+                                <span class="invalid-feedback">  {{errors[0]}}</span>
+                                <!-- <span v-if="passed">電話驗證成功</span> -->
+            
+                            </validation-provider>
+                        </div>
+        
+                        <div>
+                            <validation-provider rules="required" v-slot="{errors,classes}">
+                                <label for="address">地址</label>
+                                <input id="address" type="text" name="address" v-model="form.address" class="form-control"
+                                    :class="classes">
+            
+                                <span class="invalid-feedback">  {{errors[0]}}</span>
+                                <!-- <span v-if="passed">電話驗證成功</span> -->
+                            </validation-provider>
+                        </div>
+        
+        
+                        <div>
+                            <validation-provider rules="required" v-slot="{errors,classes}">
+                                <label for="pay">付款方式</label>
+                                <select name="pay" id="pay" class="form-control"
+                                :class="classes" v-model="form.pay">
+                                    <option value="請選擇付款方式">請選擇付款方式</option>
+                                    <option value="WebATM">WebATM</option>
+                                    <option value="ATM">ATM</option>
+                                    <option value="Barcode">Barcode</option>
+                                    <option value="Credit">Credit</option>
+                                    <option value="ApplePay">ApplePay</option>
+                                    <option value="GooglePay">GooglePay</option>
+                                </select>
+            
+                                <span class="invalid-feedback">  {{errors[0]}}</span>
+                                
+                            </validation-provider>
+                        </div>
+        
+                        <div>
+                            <validation-provider rules="" v-slot="{errors,classes}">
+                                <label for="message">留言</label>
+                                <textarea name="message" id="message" cols="20" rows="5" v-model="form.message" class="form-control"
+                                :class="classes"></textarea>
+        
+                            </validation-provider>
+                        </div>
+
+                        <br>
+                        <br>
+
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary" :disabled="invalid">送出表單</button>
+                        </div>
+                        
+                    </form>
+                </validation-observer>
+            </div>
+
+        </div>
+        
+    </div>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
